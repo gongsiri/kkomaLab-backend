@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Temperature {
+  id        String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  deviceId  String   @map("device_id") @db.VarChar(50)
+  degree    Float
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@index([deviceId, createdAt(sort: Desc)])
+  @@map("temperature")
+}
+
+model Humidity {
+  id        String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  deviceId  String   @map("device_id") @db.VarChar(50)
+  percent   Float
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@index([deviceId, createdAt(sort: Desc)])
+  @@map("humidity")
+}
+
+model Co2 {
+  id        String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  deviceId  String   @map("device_id") @db.VarChar(50)
+  ppm       Int
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@index([deviceId, createdAt(sort: Desc)])
+  @@map("co2")
+}
+
+model MotionDetect {
+  id        String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  deviceId  String   @map("device_id") @db.VarChar(50)
+  signal    Boolean
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@index([deviceId, createdAt(sort: Desc)])
+  @@map("motion_detect")
+}
+
+model FanState {
+  id        String     @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  deviceId  String     @map("device_id") @db.VarChar(50)
+  mode      String     @db.VarChar(10)  
+  isOn      Boolean    @map("is_on")
+  createdAt DateTime   @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@index([deviceId, createdAt(sort: Desc)])
+  @@map("fan_state")
+}
+
+model LightState {
+  id        String     @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  deviceId  String     @map("device_id") @db.VarChar(50)
+  mode      String     @db.VarChar(10)  
+  isOn      Boolean    @map("is_on")
+  createdAt DateTime   @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@index([deviceId, createdAt(sort: Desc)])
+  @@map("light_state")
+}
