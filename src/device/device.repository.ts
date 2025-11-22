@@ -1,7 +1,63 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
+import {
+  SELECT_FAN_STATE,
+  SelectFanState,
+} from './prisma-type/select-fan-state';
+import {
+  SELECT_LED_STATE,
+  SelectLedState,
+} from './prisma-type/select-led-state';
 
 @Injectable()
 export class DeviceRepository {
   constructor(private readonly prisma: PrismaService) {}
+
+  public async insertFanState(
+    deviceId: string,
+    mode: string,
+    isOn: boolean,
+  ): Promise<void> {
+    await this.prisma.fanState.create({
+      data: {
+        deviceId,
+        mode,
+        isOn,
+      },
+    });
+  }
+
+  public async insertLedState(
+    deviceId: string,
+    mode: string,
+    isOn: boolean,
+  ): Promise<void> {
+    await this.prisma.ledState.create({
+      data: {
+        deviceId,
+        mode,
+        isOn,
+      },
+    });
+  }
+
+  public async selectLatestFanState(
+    deviceId: string,
+  ): Promise<SelectFanState | null> {
+    return this.prisma.fanState.findFirst({
+      where: { deviceId },
+      orderBy: { createdAt: 'desc' },
+      ...SELECT_FAN_STATE,
+    });
+  }
+
+  public async selectLatestLedState(
+    deviceId: string,
+  ): Promise<SelectLedState | null> {
+    return this.prisma.ledState.findFirst({
+      where: { deviceId },
+      orderBy: { createdAt: 'desc' },
+      ...SELECT_LED_STATE,
+    });
+  }
 }
