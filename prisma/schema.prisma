@@ -58,7 +58,7 @@ model FanState {
   @@map("fan_state")
 }
 
-model LightState {
+model LedState {
   id        String     @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   deviceId  String     @map("device_id") @db.VarChar(50)
   mode      String     @db.VarChar(10)  
@@ -66,5 +66,5 @@ model LightState {
   createdAt DateTime   @default(now()) @map("created_at") @db.Timestamptz(6)
 
   @@index([deviceId, createdAt(sort: Desc)])
-  @@map("light_state")
+  @@map("led_state")
 }
