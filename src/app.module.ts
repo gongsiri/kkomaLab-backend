@@ -4,9 +4,10 @@ import { AppService } from './app.service';
 import { SensorModule } from './sensor/sensor.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { DeviceModule } from './device/device.module';
+import { MqttModule } from './mqtt/mqtt.module';
 
 @Module({
-  imports: [SensorModule, PrismaModule, DeviceModule],
+  imports: [SensorModule, PrismaModule, DeviceModule, MqttModule],
   controllers: [AppController],
   providers: [AppService],
 })
