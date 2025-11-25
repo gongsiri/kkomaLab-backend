@@ -30,7 +30,7 @@ export class MqttController {
     await this.sensorService.createCo2(dto);
   }
 
-  @EventPattern(MqttType.MOTION)
+  @EventPattern(MqttType.MOTION_DETECT)
   public async handleMotion(@Payload() dto: SensorMessageDto): Promise<void> {
     await this.sensorService.createMotion(dto);
   }

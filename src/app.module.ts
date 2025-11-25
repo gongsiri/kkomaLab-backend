@@ -6,6 +6,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { DeviceModule } from './device/device.module';
 import { MqttModule } from './mqtt/mqtt.module';
 import { ConfigModule } from '@nestjs/config';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ConfigModule } from '@nestjs/config';
     PrismaModule,
     DeviceModule,
     MqttModule,
+    DashboardModule,
   ],
   controllers: [AppController],
   providers: [AppService],
