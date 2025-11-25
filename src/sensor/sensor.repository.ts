@@ -44,27 +44,30 @@ export class SensorRepository {
     });
   }
 
-  public async selectLatestTemperature(): Promise<SelectTemperature | null> {
-    return this.prisma.temperature.findFirst({
+  public async selectLatestTemperatureList(
+    limit: number,
+  ): Promise<SelectTemperature[]> {
+    return this.prisma.temperature.findMany({
       orderBy: { createdAt: 'desc' },
+      take: limit,
       ...SELECT_TEMPERATURE,
     });
   }
 
-  public async selectLatestHumidity(): Promise<SelectHumidity | null> {
-    return this.prisma.humidity.findFirst({
-      orderBy: {
-        createdAt: 'desc',
-      },
+  public async selectLatestHumidityList(
+    limit: number,
+  ): Promise<SelectHumidity[]> {
+    return this.prisma.humidity.findMany({
+      orderBy: { createdAt: 'desc' },
+      take: limit,
       ...SELECT_HUMIDITY,
     });
   }
 
-  public async selectLatestCo2(): Promise<SelectCo2 | null> {
-    return this.prisma.co2.findFirst({
-      orderBy: {
-        createdAt: 'desc',
-      },
+  public async selectLatestCo2List(limit: number): Promise<SelectCo2[]> {
+    return this.prisma.co2.findMany({
+      orderBy: { createdAt: 'desc' },
+      take: limit,
       ...SELECT_CO2,
     });
   }
