@@ -1,8 +1,7 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from '@prisma/client';
 
 export const SELECT_TEMPERATURE = Prisma.validator()({
   select: {
-    deviceId: true,
     degree: true,
     createdAt: true,
   },

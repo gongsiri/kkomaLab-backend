@@ -8,15 +8,15 @@ export class SensorService {
   constructor(private readonly sensorRepository: SensorRepository) {}
 
   public async createTemperature(input: SensorMessageInput): Promise<void> {
-    await this.sensorRepository.insertTemperature(input.deviceId, input.value);
+    await this.sensorRepository.insertTemperature(input.value);
   }
 
   public async createHumidity(input: SensorMessageInput): Promise<void> {
-    await this.sensorRepository.insertHumidity(input.deviceId, input.value);
+    await this.sensorRepository.insertHumidity(input.value);
   }
 
   public async createCo2(input: SensorMessageInput): Promise<void> {
-    await this.sensorRepository.insertCo2(input.deviceId, input.value);
+    await this.sensorRepository.insertCo2(input.value);
   }
 
   public async createMotion(input: SensorMessageInput): Promise<void> {
@@ -26,15 +26,15 @@ export class SensorService {
       );
     }
 
-    await this.sensorRepository.insertMotion(input.deviceId, input.value === 1);
+    await this.sensorRepository.insertMotion(input.value === 1);
   }
 
   public async getAllSensorData(deviceId: string): Promise<SensorEntity> {
     const [temperature, humidity, co2, motion] = await Promise.all([
-      this.sensorRepository.selectLatestTemperature(deviceId),
-      this.sensorRepository.selectLatestHumidity(deviceId),
-      this.sensorRepository.selectLatestCo2(deviceId),
-      this.sensorRepository.selectLatestMotion(deviceId),
+      this.sensorRepository.selectLatestTemperature(),
+      this.sensorRepository.selectLatestHumidity(),
+      this.sensorRepository.selectLatestCo2(),
+      this.sensorRepository.selectLatestMotion(),
     ]);
 
     return new SensorEntity(temperature, humidity, co2, motion);

@@ -1,8 +1,7 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from '@prisma/client';
 
 export const SELECT_HUMIDITY = Prisma.validator<Prisma.HumidityDefaultArgs>()({
   select: {
-    deviceId: true,
     percent: true,
     createdAt: true,
   },

@@ -13,49 +13,33 @@ import {
 export class DeviceRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  public async insertFanState(
-    deviceId: string,
-    mode: string,
-    isOn: boolean,
-  ): Promise<void> {
+  public async insertFanState(mode: string, isOn: boolean): Promise<void> {
     await this.prisma.fanState.create({
       data: {
-        deviceId,
         mode,
         isOn,
       },
     });
   }
 
-  public async insertLedState(
-    deviceId: string,
-    mode: string,
-    isOn: boolean,
-  ): Promise<void> {
+  public async insertLedState(mode: string, isOn: boolean): Promise<void> {
     await this.prisma.ledState.create({
       data: {
-        deviceId,
         mode,
         isOn,
       },
     });
   }
 
-  public async selectLatestFanState(
-    deviceId: string,
-  ): Promise<SelectFanState | null> {
+  public async selectLatestFanState(): Promise<SelectFanState | null> {
     return this.prisma.fanState.findFirst({
-      where: { deviceId },
       orderBy: { createdAt: 'desc' },
       ...SELECT_FAN_STATE,
     });
   }
 
-  public async selectLatestLedState(
-    deviceId: string,
-  ): Promise<SelectLedState | null> {
+  public async selectLatestLedState(): Promise<SelectLedState | null> {
     return this.prisma.ledState.findFirst({
-      where: { deviceId },
       orderBy: { createdAt: 'desc' },
       ...SELECT_LED_STATE,
     });

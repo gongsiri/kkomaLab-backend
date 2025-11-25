@@ -1,9 +1,8 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from '@prisma/client';
 
 export const SELECT_MOTION = Prisma.validator<Prisma.MotionDetectDefaultArgs>()(
   {
     select: {
-      deviceId: true,
       signal: true,
       createdAt: true,
     },

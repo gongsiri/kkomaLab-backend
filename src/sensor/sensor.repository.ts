@@ -12,62 +12,47 @@ import { SELECT_MOTION, SelectMotion } from './prisma-type/select-motion';
 export class SensorRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  public async insertTemperature(
-    deviceId: string,
-    value: number,
-  ): Promise<void> {
+  public async insertTemperature(value: number): Promise<void> {
     await this.prisma.temperature.create({
       data: {
-        deviceId,
         degree: value,
       },
     });
   }
 
-  public async insertHumidity(deviceId: string, value: number): Promise<void> {
+  public async insertHumidity(value: number): Promise<void> {
     await this.prisma.humidity.create({
       data: {
-        deviceId,
         percent: value,
       },
     });
   }
 
-  public async insertCo2(deviceId: string, value: number): Promise<void> {
+  public async insertCo2(value: number): Promise<void> {
     await this.prisma.co2.create({
       data: {
-        deviceId,
         ppm: value,
       },
     });
   }
 
-  public async insertMotion(deviceId: string, signal: boolean): Promise<void> {
+  public async insertMotion(signal: boolean): Promise<void> {
     await this.prisma.motionDetect.create({
       data: {
-        deviceId,
         signal,
       },
     });
   }
 
-  public async selectLatestTemperature(
-    deviceId: string,
-  ): Promise<SelectTemperature | null> {
+  public async selectLatestTemperature(): Promise<SelectTemperature | null> {
     return this.prisma.temperature.findFirst({
-      where: { deviceId },
       orderBy: { createdAt: 'desc' },
       ...SELECT_TEMPERATURE,
     });
   }
 
-  public async selectLatestHumidity(
-    deviceId: string,
-  ): Promise<SelectHumidity | null> {
+  public async selectLatestHumidity(): Promise<SelectHumidity | null> {
     return this.prisma.humidity.findFirst({
-      where: {
-        deviceId,
-      },
       orderBy: {
         createdAt: 'desc',
       },
@@ -75,11 +60,8 @@ export class SensorRepository {
     });
   }
 
-  public async selectLatestCo2(deviceId: string): Promise<SelectCo2 | null> {
+  public async selectLatestCo2(): Promise<SelectCo2 | null> {
     return this.prisma.co2.findFirst({
-      where: {
-        deviceId,
-      },
       orderBy: {
         createdAt: 'desc',
       },
@@ -87,13 +69,8 @@ export class SensorRepository {
     });
   }
 
-  public async selectLatestMotion(
-    deviceId: string,
-  ): Promise<SelectMotion | null> {
+  public async selectLatestMotion(): Promise<SelectMotion | null> {
     return this.prisma.motionDetect.findFirst({
-      where: {
-        deviceId,
-      },
       orderBy: {
         createdAt: 'desc',
       },
