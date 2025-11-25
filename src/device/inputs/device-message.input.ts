@@ -4,5 +4,4 @@ import { StateType } from '../constants/state.type';
 export class DeviceMessageInput {
   mode: ModeType;
   state: StateType;
-  timestamp: string;
 }

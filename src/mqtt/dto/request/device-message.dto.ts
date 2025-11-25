@@ -8,8 +8,4 @@ export class DeviceMessageDto {
 
   @IsEnum(StateType)
   state: StateType;
-
-  @IsString()
-  @IsNotEmpty()
-  timestamp: string;
 }
