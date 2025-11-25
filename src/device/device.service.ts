@@ -3,19 +3,37 @@ import { DeviceRepository } from './device.repository';
 import { DeviceMessageInput } from './inputs/device-message.input';
 import { DeviceEntity } from './entity/device.entity';
 import { StateType } from './constants/state.type';
-import { MqttClient } from 'mqtt';
+import { connect, MqttClient } from 'mqtt';
 import { MqttType } from 'src/mqtt/constants/mqtt.type';
 import { CommandInput } from './inputs/fan-command.input';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class DeviceService implements OnModuleInit, OnModuleDestroy {
-  constructor(private readonly deviceRepository: DeviceRepository) {}
+  constructor(
+    private readonly deviceRepository: DeviceRepository,
+    private readonly configService: ConfigService,
+  ) {}
 
   private mqttRawClient: MqttClient;
 
-  public async onModuleInit(): Promise<void> {}
+  public onModuleInit(): void {
+    const mqttUrl = this.configService.getOrThrow<string>('MQTT_URL');
 
-  public async onModuleDestroy(): Promise<void> {}
+    this.mqttRawClient = connect(mqttUrl);
+
+    this.mqttRawClient.on('connect', () => {
+      console.log('[MQTT RAW] Connected');
+    });
+
+    this.mqttRawClient.on('error', (error) => {
+      console.error('[MQTT RAW] Error:', error);
+    });
+  }
+
+  public onModuleDestroy(): void {
+    this.mqttRawClient?.end();
+  }
 
   public async createFanState(input: DeviceMessageInput): Promise<void> {
     const isOn = input.state === StateType.ON;
