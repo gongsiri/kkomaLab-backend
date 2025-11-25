@@ -2,7 +2,7 @@ CREATE USER db_admin WITH PASSWORD '1234';
 
 CREATE DATABASE iot OWNER db_admin;
 
-\c iot db_admin;
+\c iot db_admin
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
@@ -11,7 +11,7 @@ CREATE TABLE co2
   id         uuid                     NOT NULL DEFAULT uuid_generate_v4(),
   ppm        int                      NOT NULL,
   created_at timestamp with time zone NOT NULL DEFAULT NOW(),
-  PRIMARY KEY (id),
+  PRIMARY KEY (id)
 );
 
 CREATE TABLE humidity
