@@ -29,7 +29,7 @@ export class SensorService {
     await this.sensorRepository.insertMotion(input.value === 1);
   }
 
-  public async getAllSensorData(deviceId: string): Promise<SensorEntity> {
+  public async getAllSensorData(): Promise<SensorEntity> {
     const [temperatureList, humidityList, co2List, motion] = await Promise.all([
       this.sensorRepository.selectLatestTemperatureList(15),
       this.sensorRepository.selectLatestHumidityList(15),
