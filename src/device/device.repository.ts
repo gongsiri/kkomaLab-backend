@@ -13,21 +13,29 @@ import {
 export class DeviceRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  public async insertFanState(mode: string, isOn: boolean): Promise<void> {
-    await this.prisma.fanState.create({
+  public async insertFanState(
+    mode: string,
+    isOn: boolean,
+  ): Promise<SelectFanState> {
+    return await this.prisma.fanState.create({
       data: {
         mode,
         isOn,
       },
+      ...SELECT_FAN_STATE,
     });
   }
 
-  public async insertLedState(mode: string, isOn: boolean): Promise<void> {
-    await this.prisma.ledState.create({
+  public async insertLedState(
+    mode: string,
+    isOn: boolean,
+  ): Promise<SelectLedState> {
+    return await this.prisma.ledState.create({
       data: {
         mode,
         isOn,
       },
+      ...SELECT_LED_STATE,
     });
   }
 

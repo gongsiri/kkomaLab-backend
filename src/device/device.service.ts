@@ -7,6 +7,8 @@ import { connect, MqttClient } from 'mqtt';
 import { MqttType } from 'src/mqtt/constants/mqtt.type';
 import { CommandInput } from './inputs/fan-command.input';
 import { ConfigService } from '@nestjs/config';
+import { FanStateEntity } from './entity/fan-state.entity';
+import { LedStateEntity } from './entity/led-state.entity';
 
 @Injectable()
 export class DeviceService implements OnModuleInit, OnModuleDestroy {
@@ -35,24 +37,30 @@ export class DeviceService implements OnModuleInit, OnModuleDestroy {
     this.mqttRawClient?.end();
   }
 
-  public async createFanState(input: DeviceMessageInput): Promise<void> {
+  public async createFanState(
+    input: DeviceMessageInput,
+  ): Promise<FanStateEntity> {
     const isOn = input.state === StateType.ON;
 
-    await this.deviceRepository.insertFanState(input.mode, isOn);
+    const fan = await this.deviceRepository.insertFanState(input.mode, isOn);
+    return FanStateEntity.fromPrisma(fan);
   }
 
-  public async createLedState(input: DeviceMessageInput): Promise<void> {
+  public async createLedState(
+    input: DeviceMessageInput,
+  ): Promise<LedStateEntity> {
     const isOn = input.state === StateType.ON;
 
-    await this.deviceRepository.insertLedState(input.mode, isOn);
+    const led = await this.deviceRepository.insertLedState(input.mode, isOn);
+    return LedStateEntity.fromPrisma(led);
   }
 
   public async getAllDeviceState(): Promise<DeviceEntity> {
-    const [fanState, ledState] = await Promise.all([
+    const [fan, led] = await Promise.all([
       this.deviceRepository.selectLatestFanState(),
       this.deviceRepository.selectLatestLedState(),
     ]);
-    return new DeviceEntity(fanState, ledState);
+    return DeviceEntity.fromPrisma({ fan, led });
   }
 
   public publishFanCommand(input: CommandInput): Promise<void> {
