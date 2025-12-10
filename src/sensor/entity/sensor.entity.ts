@@ -4,15 +4,15 @@ import { SelectMotion } from '../prisma-type/select-motion';
 import { SelectTemperature } from '../prisma-type/select-temperature';
 
 export class SensorEntity {
-  temperatureList: SelectTemperature[] | null;
-  humidityList: SelectHumidity[] | null;
-  co2List: SelectCo2[] | null;
+  temperatureList: SelectTemperature[];
+  humidityList: SelectHumidity[];
+  co2List: SelectCo2[];
   motion: SelectMotion | null;
 
   constructor(
-    temperatureList: SelectTemperature[] | null,
-    humidityList: SelectHumidity[] | null,
-    co2List: SelectCo2[] | null,
+    temperatureList: SelectTemperature[],
+    humidityList: SelectHumidity[],
+    co2List: SelectCo2[],
     motion: SelectMotion | null,
   ) {
     this.temperatureList = temperatureList;

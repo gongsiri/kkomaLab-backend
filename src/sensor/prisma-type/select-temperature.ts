@@ -2,6 +2,7 @@ import { Prisma } from '@prisma/client';
 
 export const SELECT_TEMPERATURE = Prisma.validator()({
   select: {
+    id: true,
     degree: true,
     createdAt: true,
   },

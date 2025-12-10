@@ -12,35 +12,39 @@ import { SELECT_MOTION, SelectMotion } from './prisma-type/select-motion';
 export class SensorRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  public async insertTemperature(value: number): Promise<void> {
-    await this.prisma.temperature.create({
+  public async insertTemperature(value: number): Promise<SelectTemperature> {
+    return this.prisma.temperature.create({
       data: {
         degree: value,
       },
+      ...SELECT_TEMPERATURE,
     });
   }
 
-  public async insertHumidity(value: number): Promise<void> {
-    await this.prisma.humidity.create({
+  public async insertHumidity(value: number): Promise<SelectHumidity> {
+    return this.prisma.humidity.create({
       data: {
         percent: value,
       },
+      ...SELECT_HUMIDITY,
     });
   }
 
-  public async insertCo2(value: number): Promise<void> {
-    await this.prisma.co2.create({
+  public async insertCo2(value: number): Promise<SelectCo2> {
+    return this.prisma.co2.create({
       data: {
         ppm: value,
       },
+      ...SELECT_CO2,
     });
   }
 
-  public async insertMotion(signal: boolean): Promise<void> {
-    await this.prisma.motionDetect.create({
+  public async insertMotion(signal: boolean): Promise<SelectMotion> {
+    return this.prisma.motionDetect.create({
       data: {
         signal,
       },
+      ...SELECT_MOTION,
     });
   }
 

@@ -2,6 +2,7 @@ import { Prisma } from '@prisma/client';
 
 export const SELECT_CO2 = Prisma.validator<Prisma.Co2DefaultArgs>()({
   select: {
+    id: true,
     ppm: true,
     createdAt: true,
   },
