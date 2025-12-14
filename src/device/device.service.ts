@@ -39,8 +39,13 @@ export class DeviceService implements OnModuleInit, OnModuleDestroy {
 
   public async createFanState(
     input: DeviceMessageInput,
-  ): Promise<FanStateEntity> {
+  ): Promise<FanStateEntity | null> {
     const isOn = input.state === StateType.ON;
+
+    const latestFan = await this.deviceRepository.selectLatestFanState();
+
+    if (latestFan && latestFan.mode === input.mode && latestFan.isOn === isOn)
+      return null;
 
     const fan = await this.deviceRepository.insertFanState(input.mode, isOn);
     return FanStateEntity.fromPrisma(fan);
@@ -48,8 +53,13 @@ export class DeviceService implements OnModuleInit, OnModuleDestroy {
 
   public async createLedState(
     input: DeviceMessageInput,
-  ): Promise<LedStateEntity> {
+  ): Promise<LedStateEntity | null> {
     const isOn = input.state === StateType.ON;
+
+    const latestLed = await this.deviceRepository.selectLatestLedState();
+
+    if (latestLed && latestLed.mode === input.mode && latestLed.isOn === isOn)
+      return null;
 
     const led = await this.deviceRepository.insertLedState(input.mode, isOn);
     return LedStateEntity.fromPrisma(led);
