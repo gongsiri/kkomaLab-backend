@@ -107,6 +107,13 @@ export class DeviceService implements OnModuleInit, OnModuleDestroy {
             reject(error);
             return;
           }
+
+          console.log(
+            '[MQTT COMMAND SEND]',
+            MqttType.LIGHT_COMMAND,
+            input.command,
+          );
+
           resolve();
         },
       );

@@ -38,6 +38,12 @@ export class MqttController {
   @EventPattern(MqttType.MOTION_DETECT)
   public async handleMotion(@Payload() dto: SensorMessageDto): Promise<void> {
     const motion = await this.sensorService.createMotion(dto);
+
+    if (!motion) {
+      console.log('[DB SKIP] same motion state');
+      return;
+    }
+
     this.dashboardGateway.emitMotionUpdate(motion);
   }
 

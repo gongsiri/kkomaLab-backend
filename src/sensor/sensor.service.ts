@@ -32,11 +32,21 @@ export class SensorService {
     return Co2Entity.fromPrisma(co2);
   }
 
-  public async createMotion(input: SensorMessageInput): Promise<MotionEntity> {
+  public async createMotion(
+    input: SensorMessageInput,
+  ): Promise<MotionEntity | null> {
     if (input.value !== 0 && input.value !== 1) {
       throw new BadRequestException(
         'Motion sensor value must be either 0 or 1',
       );
+    }
+
+    const signal = input.value === 1;
+
+    const latestMotion = await this.sensorRepository.selectLatestMotion();
+
+    if (latestMotion && latestMotion.signal === signal) {
+      return null;
     }
 
     const motion = await this.sensorRepository.insertMotion(input.value === 1);

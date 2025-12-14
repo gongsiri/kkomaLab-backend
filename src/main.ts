@@ -11,7 +11,7 @@ async function bootstrap() {
   const port = configService.getOrThrow<number>('PORT');
   const mqttUrl = configService.getOrThrow<string>('MQTT_URL');
   const corsOrigins = configService
-    .get<string>('CORS_ORIGIN', '')
+    .get<string>('CORS_ORIGINS', '')
     .split(',')
     .map((origin) => origin.trim())
     .filter(Boolean);
