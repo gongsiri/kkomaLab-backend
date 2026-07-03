@@ -117,14 +117,14 @@ NestJS Backend
 
 | Topic | 방향 | 설명 |
 |---|---|---|
-| 'temperature' | Edge Device -> Backend | 온도 데이터 |
-| 'humidity' | Edge Device -> Backend | 습도 데이터 |
-| 'co2' | Edge Device -> Backend | 이산화탄소 데이터 |
-| 'motion-detect' | Edge Device -> Backend | 재실감지 데이터 |
-| 'fan/state' | Edge Device -> Backend | 팬 상태 |
-| 'light/state' | Edge Device -> Backend | LED 상태 |
-| 'fan/cmd' | Backend -> Edge Device | 팬 제어 명령 |
-| 'light/cmd' | Backend -> Edge Device | LED 제어 명령 |
+| `temperature` | Edge Device -> Backend | 온도 데이터 |
+| `humidity` | Edge Device -> Backend | 습도 데이터 |
+| `co2` | Edge Device -> Backend | 이산화탄소 데이터 |
+| `motion-detect` | Edge Device -> Backend | 재실감지 데이터 |
+| `fan/state` | Edge Device -> Backend | 팬 상태 |
+| `light/state` | Edge Device -> Backend | LED 상태 |
+| `fan/cmd` | Backend -> Edge Device | 팬 제어 명령 |
+| `light/cmd` | Backend -> Edge Device | LED 제어 명령 |
 
 --- 
 
