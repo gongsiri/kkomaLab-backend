@@ -31,32 +31,31 @@ Arduino UNO R4 WiFi 기반 Edge Device는 온도, 습도, 이산화탄소 농도
 Arduino Edge Device
         ↓ MQTT Publish
 Mosquitto Broker
-        ↓ MQTT Subscribe
+        ↓ MQTT Message Delivery
 NestJS Backend
-        ↓
+        ↓ Store
 PostgreSQL
         ↓ REST API / WebSocket
 Web Dashboard
 ```
 
 ```text
-팬 수동 제어
+수동 제어
 
 Web Dashboard
         ↓ REST API
 NestJS Backend
         ↓ MQTT Publish
 Mosquitto Broker
-        ↓ MQTT Subscribe
+        ↓ MQTT Message Delivery
 Arduino Edge Device
         ↓ 팬/LED Control
-Arduino Edge Device
         ↓ MQTT State Publish
 Mosquitto Broker
-        ↓ MQTT Publish
+        ↓ MQTT Message Delivery
 NestJS Backend
-        ↓ WebSocket
-Web Dashboard
+        ↓ Store
+PostgreSQL / Web Dashboard
 ```
 
 ---
