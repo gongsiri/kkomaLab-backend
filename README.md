@@ -86,6 +86,8 @@ NestJS Backend
 ## 아키텍처
 ![image](https://github.com/user-attachments/assets/85757256-24a8-49e5-bdfd-909ed78a5895)
 
+---
+
 ## 기술 스택
 
 ### Bakcend
