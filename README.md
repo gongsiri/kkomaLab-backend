@@ -49,7 +49,9 @@ NestJS Backend
 Mosquitto Broker
         ↓ MQTT Subscribe
 Arduino Edge Device
-        ↓ 팬 상태 변경
+        ↓ 팬/LED Control
+Arduino Edge Device
+        ↓ MQTT State Publish
 Mosquitto Broker
         ↓ MQTT Publish
 NestJS Backend
