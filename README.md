@@ -35,6 +35,8 @@ Mosquitto Broker
 NestJS Backend
         ↓ Store
 PostgreSQL
+
+NestJS Backend
         ↓ REST API / WebSocket
 Web Dashboard
 ```
@@ -54,8 +56,8 @@ Arduino Edge Device
 Mosquitto Broker
         ↓ MQTT Message Delivery
 NestJS Backend
-        ↓ Store
-PostgreSQL / Web Dashboard
+        ├─→ PostgreSQL : 상태 저장
+        └─→ Web Dashboard : WebSocket 전달
 ```
 
 ---
